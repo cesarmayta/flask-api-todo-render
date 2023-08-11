@@ -2,7 +2,7 @@ from flask import Flask,jsonify,request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
-import os
+from decouple import config
 
 app = Flask(__name__)
 CORS(app)
@@ -10,7 +10,7 @@ CORS(app)
 app.app_context().push()
 
 db = SQLAlchemy()
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
+app.config["SQLALCHEMY_DATABASE_URI"] = config('DATABASE_URI')
 db.init_app(app)
 
 class Tarea(db.Model):
